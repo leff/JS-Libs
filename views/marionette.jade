@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  script#question-template(type='text/html')
+    .question
+      .title <%= question_text %>
+      .answers-container
+
+
+  script#answer-list-template(type='text/html')
+    .answers
+      ul.answers-list
+
+  script#answer-template(type='text/html')
+    li.answer [<%= value %>] <%= text %>
+
+
+  #marionette-questions
+
+
+block js
+  script(data-main='/marionette/marionette-app.js' src='/marionette/vendor/require.js')

@@ -1,0 +1,75 @@
+<html>
+<head>
+    <script data-main="marionette.js" src="general/require.js"></script>
+</head>
+<body>
+
+
+    <script id="question-template"  type="text/html">
+    <div class="esm-survey-question {{name}}">
+        <div class="esm-question">
+            <h3 class="esm-question-title"><%= question_text %></h3>
+            <div class="esm-answers"></div>
+            <div class="esm-clearfix"></div>
+        </div>
+        <div class="esm-status-mark"></div>
+        <div class="esm-messages hidden">
+            <div class="esm-errors esm-question-errors">
+                <span class="esm-error-message"></span>
+            </div>
+            <a class="esm-error-control esm-btn esm-mini esm-green"></a>
+        </div>
+        <div class="esm-clearfix"></div>
+    </div>
+    </script>
+
+
+    <script type="text/javascript">
+    // In real life, this would be injected by python
+    // also, it would be a list, rather just one
+    // also, it would be json rather than a hand coded object literal
+    question_json = {
+        name: 'sandwich',
+        question_text: 'What kind of sandwich do you have?',
+        accepted_answers: {
+            type: 'choices',
+            choices: [
+                {
+                    type: 'choice',
+                    text: 'Club',
+                    img: 'sandwich-club.png',
+                    value: '1'
+                },
+                {
+                    type: 'choice',
+                    text: 'Ruben',
+                    img: 'sandwich-ruben.png',
+                    value: '2'
+                },
+                {
+                    type: 'choice',
+                    text: 'Hamburger',
+                    img: 'sandwich-burger.png',
+                    value: '3'
+                },
+                {
+                    type: 'choice',
+                    text: 'Hoagie',
+                    img: 'sandwich-hoagie.png',
+                    value: '4'
+                }
+            ]
+        }
+    };
+    </script>
+
+
+
+
+
+    <script>
+
+    </script>
+
+</body>
+</html>
