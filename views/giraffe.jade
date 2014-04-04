@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1= title
+  script#question-template(type='text/template')
+    .question
+      .title <%= question_text %>
+      .answers-container
+
+
+  script#answer-list-template(type='text/template')
+    .answers
+
+
+  script#answer-template(type='text/template')
+    li.answer [<%= val %>] <%= text %>
+
+
+  #giraffe-questions
+
+
+block js
+  script(src='http://code.jquery.com/jquery-1.9.1.js')
+  script(src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore.js')
+  script(src='http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.js')
+  script(src='/giraffe/backbone.giraffe.js')
+  script(src='/giraffe/giraffe-app.js')

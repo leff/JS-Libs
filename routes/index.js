@@ -6,3 +6,7 @@ exports.index = function(req, res){
 exports.marionette = function(req, res){
   res.render('marionette', { title: 'Marionette' });
 };
+
+exports.giraffe = function(req, res){
+  res.render('giraffe', { title: 'Giraffe' });
+};

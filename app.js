@@ -25,6 +25,7 @@ app.use(app.router);
 
 app.get('/', routes.index);
 app.get('/marionette', routes.marionette);
+app.get('/giraffe', routes.giraffe);
 app.get('/users', users.list);
 
 /// catch 404 and forwarding to error handler
