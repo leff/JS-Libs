@@ -116,14 +116,50 @@ require(['backbone', 'marionette'], function(Backbone, Marionette) {
         }
     });
 
-    var AnswerView = Marionette.ItemView.extend({
-        template: '#answer-template'
+    var ChoiceView = Marionette.ItemView.extend({
+        template: '#answer-template',
+        events: {
+            'click': 'onClick'
+        },
+
+        onClick: function() {
+            this.trigger('selected');
+        },
+
+        setSelected: function() {
+
+        },
+
+        onRender: function(){
+            var is_selected = this.model.get('selected');
+            if(is_selected) {
+                this.$el.css('background-color', '#FF8');
+            } else {
+                this.$el.css('background-color', '#FFF');
+            }
+        }
+
     });
 
     var AnswerListView = Marionette.CompositeView.extend({
-        itemView: AnswerView,
+        itemView: ChoiceView,
         itemViewContainer: '.answers-list',
-        template: '#answer-list-template'
+        template: '#answer-list-template',
+
+        itemEvents: {
+            'selected': 'itemSelected'
+        },
+
+        itemSelected: function(evt_name, choice) {
+            this.children.each(function(item){
+                if( item != choice ) {
+                    item.model.set('selected', false);
+                } else {
+                    item.model.set('selected', true);
+                }
+            });
+            this.render();
+        }
     });
 
     var QuestionView = Marionette.Layout.extend({
@@ -137,7 +173,6 @@ require(['backbone', 'marionette'], function(Backbone, Marionette) {
             app.on("initialize:after", this.final_init, this);
         },
         final_init: function() {
-            console.log(this.model.accepted_answers);
             this.answers.show(new AnswerListView({collection: this.model.accepted_answers}));
         }
     });
