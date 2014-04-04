@@ -10,3 +10,7 @@ exports.marionette = function(req, res){
 exports.giraffe = function(req, res){
   res.render('giraffe', { title: 'Giraffe' });
 };
+
+exports.knockout = function(req, res){
+  res.render('knockout', { title: 'Knockout' });
+};

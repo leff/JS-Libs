@@ -28,3 +28,14 @@ It tries to keep the backbone mentality of allowing you to use as much as you wa
 Giraffe is very much like Marionette but it seems a bit simpler. The nice thing for our purposes is that it doesn’t require views to be attached to models. This actually makes me want to see what I can do with Model-less views in Marionette.
 
 On the otherhand, Giraffe is not very active and doesn't have a big community around it.
+
+
+# knockout is out
+
+Best docs i've found on doing reusable html templates with knockout is to do it on the serverside.
+http://conficient.wordpress.com/2013/03/07/knockout-multiple-viewmodels-and-reusable-partial-views/
+They use Razor Partial Views, but it'd be equivalent to doing {% include /fragments/blah.html %} in python.
+
+No.
+
+Just. No.
