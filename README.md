@@ -9,6 +9,13 @@ The problem we're trying to solve is that we want to ask our users some question
 The data that represents the questions is actually much more complicated than the data that represents the answers. This means that typical Model-View parity that you see in all the MV* examples doesn't really work. So I'm trying to dash out a few quick prototypes with some libraries to see if I can narrow down the options.
 
 
+# Run the server
+
+* install node
+* cd to the directory and
+* $ npm start
+
+
 # Marionette
 First up, it's Marionette https://github.com/marionettejs/backbone.marionette
 
