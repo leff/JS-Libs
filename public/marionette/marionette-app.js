@@ -126,16 +126,11 @@ require(['backbone', 'marionette'], function(Backbone, Marionette) {
             this.trigger('selected');
         },
 
-        setSelected: function() {
-
-        },
-
         onRender: function(){
-            var is_selected = this.model.get('selected');
-            if(is_selected) {
+            if( this.model.get('selected') ) {
                 this.$el.css('background-color', '#FF8');
             } else {
-                this.$el.css('background-color', '#FFF');
+                this.$el.css('background-color', 'transparent');
             }
         }
 
@@ -147,10 +142,18 @@ require(['backbone', 'marionette'], function(Backbone, Marionette) {
         template: '#answer-list-template',
 
         itemEvents: {
-            'selected': 'itemSelected'
+            'selected': 'onChangeSelected'
+        },
+        dataEvents: {
+            'all': 'datae'
         },
 
-        itemSelected: function(evt_name, choice) {
+        datae: function() {
+            console.log(arguments);
+        },
+
+        onChangeSelected: function(evt_name, choice) {
+            console.log( arguments );
             this.children.each(function(item){
                 if( item != choice ) {
                     item.model.set('selected', false);

@@ -74,7 +74,7 @@ AnswerListView = Giraffe.View.extend({
             this.attach(cv);
         }, this);
     },
-    onChangeSelected: function(selected_choice, selected) {
+    onChangeSelectedonChangeSelected: function(selected_choice, selected) {
         if (selected) {
             var others = this.collection.filter( function(c) {return c.get('val') != selected_choice.get('val'); } );
             _.each(others, function(c) { c.set('selected', false); });
