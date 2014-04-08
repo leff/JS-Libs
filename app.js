@@ -25,6 +25,7 @@ app.use(app.router);
 
 app.get('/', routes.index);
 app.get('/marionette', routes.marionette);
+app.get('/marionette2', routes.marionette2);
 app.get('/giraffe', routes.giraffe);
 app.get('/knockout', routes.knockout);
 app.get('/users', users.list);
