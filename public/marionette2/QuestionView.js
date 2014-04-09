@@ -22,21 +22,39 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
             answer: '.answer'
         },
 
+
+        initialize: function() {
+
+            //This only handles 2 level questions
+            //but it does so by accepting the whole model, but only acting on a subset (the sub question)
+            if( this.options.choice_name ) {
+                var choice_in_question = _.findWhere(this.model.get('choices'), {name: this.options.choice_name});
+                this.choices = choice_in_question.choices;
+            } else {
+                this.choices = this.model.get('choices');
+            }
+        },
+
+        serializeData: function() {
+            return {
+                choices: this.choices
+            };
+        },
+
         onItemClick: function(evt) {
 
             //This is sort of ugly. We're touching the DOM by hand.
             var choice_node = $(evt.currentTarget);
             var choice_name = choice_node.attr('data-name');
-            var choice = _.findWhere(this.model.get('choices'), {name: choice_name});
+            var choice = _.findWhere(this.choices, {name: choice_name});
 
             if( choice.type === 'choice' ) {
                 this.ui.answer.removeClass('selected');
                 choice_node.addClass('selected');
                 this.model.set('val', choice.val);
             } else if ( choice.type === 'choices' ) {
-                this.model.set('val', undefined);
                 //swap in next set of choices
-                this.trigger('subchoice:selected', choice);
+                this.trigger('subchoice:selected', choice_name);
             }
         }
     });
@@ -74,11 +92,12 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
             var alv = new AnswerListView({model: this.model});
             this.answers.show(alv);
             this.ui.change.hide();
+            this.model.set('val', undefined);
         },
 
-        onFollowup: function(choice) {
+        onFollowup: function(choice_name) {
             this.ui.change.show();
-            var nv = new AnswerListView({model: new QuestionModel(choice)});
+            var nv = new AnswerListView({model: this.model, choice_name: choice_name});
             this.answers.show(nv);
         },
 
