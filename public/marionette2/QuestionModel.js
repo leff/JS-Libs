@@ -10,24 +10,17 @@ define(['backbone'], function(Backbone) {
                 //AnswersCollection
             },
             val: undefined //current value
+        },
+
+        constructor: function(attrs) {
+            Backbone.Model.apply(this, arguments);
+            var choices = _.map(attrs.choices, function(raw){ return new ChoiceModel(raw); });
+            this.choices = new AnswersCollection(choices);
         }
-        
-        // constructor: function(attrs) {
-        //     this.name = attrs.name;
-        //     this.question_text = attrs.question_text;
-        //     Backbone.Model.apply(this, arguments);
-        //     this.accepted_answers = new AnswersCollection(attrs.choices);
-        // }
     });
 
     var AnswersCollection = Backbone.Collection.extend({
-        model: ChoiceModel,
-        defaults: {
-            type: 'choices',
-            choices: [
-                //ChoiceModel
-            ]
-        }
+        model: ChoiceModel
     });
 
     var ChoiceModel = Backbone.Model.extend({

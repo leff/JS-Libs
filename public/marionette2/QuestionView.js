@@ -1,6 +1,6 @@
 define(['backbone', 'marionette', 'QuestionModel'], function(Backbone, Marionette, QuestionModel) {
 
-    var AnswerListView = Marionette.ItemView.extend({
+    var AnswerListView = Marionette.CompositeView.extend({
         template: '#answer-list-template',
 
         events: {
@@ -10,8 +10,13 @@ define(['backbone', 'marionette', 'QuestionModel'], function(Backbone, Marionett
             answer: '.answer'
         },
 
-        onItemClick: function(evt_name, choice) {
-            console.log( 'itemclick', arguments );
+        onItemClick: function(evt) {
+
+            var item = $(evt.currentTarget);
+            var choice_value = item.find('span').html();
+
+            var choice = this.collection.findWhere({val: choice_value});
+
             if( choice.type === 'choice' ) {
                 this.ui.answer.removeClass('selected');
                 choice.addClass('selected');
@@ -34,12 +39,13 @@ define(['backbone', 'marionette', 'QuestionModel'], function(Backbone, Marionett
         },
 
         onRender: function() {
-            this.answers.show(new AnswerListView({model: this.model}));
+            var alv = new AnswerListView({collection: this.model});
+            this.answers.show(alv);
         },
 
         onFollowup: function(evt, choice) {
             console.log('onfollowup', arguments);
-            this.answers.show(new AnswerListView({model: this.model}));
+            this.answers.show(new AnswerListView({collection: this.model}));
         }
     });
 
