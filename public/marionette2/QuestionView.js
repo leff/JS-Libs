@@ -1,6 +1,17 @@
 define(['backbone', 'marionette', 'QuestionModel', 'tpl!templates/AnswerListTemplate.html', 'tpl!templates/QuestionTemplate.html'],
 function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTemplate) {
 
+    var CurrentValueView = Marionette.ItemView.extend({
+        template: '#current-value-template',
+        modelEvents: {
+            'change': 'onModelChange'
+        },
+
+        onModelChange: function() {
+            this.render();
+        }
+    });
+
     var AnswerListView = Marionette.CompositeView.extend({
         template: AnswerListTemplate,
 
@@ -23,7 +34,6 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
                 choice_node.addClass('selected');
                 this.model.set('val', choice.val);
             } else if ( choice.type === 'choices' ) {
-                console.log('yo');
                 this.model.set('val', undefined);
                 //swap in next set of choices
                 this.trigger('subchoice:selected', choice);
@@ -57,6 +67,7 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
 
         onRender: function() {
             this._initQuestion();
+            this.current_value.show( new CurrentValueView({model: this.model}) );
         },
 
         _initQuestion: function() {
@@ -72,7 +83,6 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
         },
 
         onChangeClick: function() {
-            console.log(this, arguments);
             this._initQuestion();
         }
 
