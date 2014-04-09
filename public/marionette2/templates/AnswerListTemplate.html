@@ -1,0 +1,10 @@
+<div class="answers">
+    <ul class="answers-list">
+        <% _.each(choices, function(i){ %>
+            <li class="answer" data-val='<%= i.val %>' data-name='<%= i.name %>'>
+                <span><%= i.val %></span>
+                <%= i.text %>
+            </li>
+        <% }); %>
+    </ul>
+</div>

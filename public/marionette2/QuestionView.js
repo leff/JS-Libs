@@ -1,7 +1,8 @@
-define(['backbone', 'marionette', 'QuestionModel'], function(Backbone, Marionette, QuestionModel) {
+define(['backbone', 'marionette', 'QuestionModel', 'tpl!templates/AnswerListTemplate.html', 'tpl!templates/QuestionTemplate.html'],
+function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTemplate) {
 
     var AnswerListView = Marionette.CompositeView.extend({
-        template: '#answer-list-template',
+        template: AnswerListTemplate,
 
         events: {
             'click .answer': 'onItemClick'
@@ -12,40 +13,46 @@ define(['backbone', 'marionette', 'QuestionModel'], function(Backbone, Marionett
 
         onItemClick: function(evt) {
 
-            var item = $(evt.currentTarget);
-            var choice_value = item.find('span').html();
-
-            var choice = this.collection.findWhere({val: choice_value});
+            //This is sort of ugly. We're touching the DOM by hand.
+            var choice_node = $(evt.currentTarget);
+            var choice_name = choice_node.attr('data-name');
+            var choice = _.findWhere(this.model.get('choices'), {name: choice_name});
 
             if( choice.type === 'choice' ) {
                 this.ui.answer.removeClass('selected');
-                choice.addClass('selected');
+                choice_node.addClass('selected');
                 this.model.set('val', choice.val);
             } else if ( choice.type === 'choices' ) {
+                console.log('yo');
+                this.model.set('val', undefined);
                 //swap in next set of choices
-                this.trigger('subchoice;selected', choice);
+                this.trigger('subchoice:selected', choice);
             }
         }
     });
 
     var QuestionView = Marionette.Layout.extend({
-        template: "#question-template",
+        template: QuestionTemplate,
 
         regions: {
             answers: ".answers-container"
         },
-        itemEvents: {
-            'subchoice:selected': 'onFollowup'
+        initialize: function() {
+            var that = this;
+
+            this.answers.on('show', function(view){
+                that.listenTo(view, 'subchoice:selected', that.onFollowup);
+            });
         },
 
         onRender: function() {
-            var alv = new AnswerListView({collection: this.model});
+            var alv = new AnswerListView({model: this.model});
             this.answers.show(alv);
         },
 
-        onFollowup: function(evt, choice) {
-            console.log('onfollowup', arguments);
-            this.answers.show(new AnswerListView({collection: this.model}));
+        onFollowup: function(choice) {
+            var nv = new AnswerListView({model: new QuestionModel(choice)});
+            this.answers.show(nv);
         }
     });
 

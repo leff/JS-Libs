@@ -2,21 +2,6 @@ extends layout
 
 block content
   h1= title
-  script#question-template(type='text/html')
-    .question
-      .title <%= question_text %>
-      .answers-container
-
-
-  script#answer-list-template(type='text/html')
-    .answers
-      ul.answers-list
-        <% _.each(choices, function(i){ %>
-        li.answer
-          span <%= i.value %>
-          <%= i.text %>
-        <% }); %>
-
 
   #marionette-questions
 

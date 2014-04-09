@@ -13,44 +13,51 @@ define(function() {
             choices: [
                 {
                     type: 'choice',
+                    name: 'club',
                     text: 'Club',
                     img: 'sandwich-club.png',
-                    value: '1'
+                    val: '1'
                 },
                 {
                     type: 'choice',
+                    name: 'ruben',
                     text: 'Ruben',
                     img: 'sandwich-ruben.png',
-                    value: '2'
+                    val: '2'
                 },
                 {
                     type: 'choice',
+                    name: 'hamburger',
                     text: 'Hamburger',
                     img: 'sandwich-burger.png',
-                    value: '3'
+                    val: '3'
                 },
                 {
                     type: 'choices',
+                    name: 'big',
                     text: 'Big Sandwich',
                     img: 'sandwich-big.png',
                     choices: [
                         {
                             type: 'choice',
+                            name: 'hoagie',
                             text: 'Hoagie',
                             img: 'sandwich-hoagie.png',
-                            value: '4'
+                            val: '4'
                         },
                         {
                             type: 'choice',
+                            name: 'sub',
                             text: 'Submarine',
                             img: 'sandwich-sub.png',
-                            value: '5'
+                            val: '5'
                         },
                         {
                             type: 'choice',
+                            name: 'grinder',
                             text: 'Grinder',
                             img: 'sandwich-grinder.png',
-                            value: '6'
+                            val: '6'
                         }
                     ]
                 }

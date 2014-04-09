@@ -9,7 +9,8 @@ requirejs.config({
         'backbone.babysitter': '/marionette2/vendor/backbone.babysitter',
         QuestionModel: '/marionette2/QuestionModel',
         QuestionView: '/marionette2/QuestionView',
-        question_json: '/marionette2/question'
+        question_json: '/marionette2/question',
+        tpl: '/marionette2/vendor/tpl'
 
     },
     shim: {
