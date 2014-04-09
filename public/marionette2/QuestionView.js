@@ -35,8 +35,18 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
         template: QuestionTemplate,
 
         regions: {
-            answers: ".answers-container"
+            answers: ".answers-container",
+            current_value: ".current-value"
         },
+
+        ui: {
+            'change': '.change'
+        },
+
+        events: {
+            'click @ui.change': 'onChangeClick'
+        },
+
         initialize: function() {
             var that = this;
 
@@ -46,14 +56,26 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
         },
 
         onRender: function() {
+            this._initQuestion();
+        },
+
+        _initQuestion: function() {
             var alv = new AnswerListView({model: this.model});
             this.answers.show(alv);
+            this.ui.change.hide();
         },
 
         onFollowup: function(choice) {
+            this.ui.change.show();
             var nv = new AnswerListView({model: new QuestionModel(choice)});
             this.answers.show(nv);
+        },
+
+        onChangeClick: function() {
+            console.log(this, arguments);
+            this._initQuestion();
         }
+
     });
 
     return QuestionView;
