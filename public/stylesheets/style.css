@@ -10,3 +10,40 @@ a {
 .selected {
     background-color: #FF9;
 }
+
+.question {
+    width: 800px;
+    position: relative;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    padding: 10px;
+}
+.answers-list {
+
+}
+
+.answers-list .answer {
+    display: inline-block;
+    list-style-type: none;
+    width: 100px;
+    height: 100px;
+    background-color: #CCC;
+    margin: 1em;
+}
+
+.answers-list .answer.selected{
+    background-color: #F95;
+}
+
+.change {
+    width: 100px;
+    float: left;
+    line-height: 150px;
+}
+
+.status-indicator {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    background-color: #5F9;
+}
