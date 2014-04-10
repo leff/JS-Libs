@@ -10,6 +10,7 @@ define(function() {
             name: 'sandwich',
             text: 'What kind of sandwich do you have?',
             type: 'choices',
+            val: "3",
             choices: [
                 {
                     type: 'choice',

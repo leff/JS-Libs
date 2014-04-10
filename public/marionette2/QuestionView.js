@@ -99,7 +99,6 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
             var alv = new AnswerListView({model: this.model});
             this.answers.show(alv);
             this.ui.subquestion_control.hide();
-            this.model.set('val', undefined);
         },
 
         onFollowup: function(choice_name) {
@@ -113,6 +112,7 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
 
         onChangeClick: function() {
             this._initQuestion();
+            this.model.set('val', undefined);
         },
 
         onModelChange: function(model) {

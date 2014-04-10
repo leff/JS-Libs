@@ -15,6 +15,7 @@ define(['backbone'], function(Backbone) {
         constructor: function(attrs) {
             Backbone.Model.apply(this, arguments);
             var choices = _.map(attrs.choices, function(raw){ return new ChoiceModel(raw); });
+
             this.choices = new AnswersCollection(choices);
         }
     });
