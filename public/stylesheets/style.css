@@ -30,15 +30,22 @@ a {
     background-color: #CCC;
     margin: 1em;
 }
+.answers-list .answer:hover {
+    cursor: pointer;
+    background-color: #BBB;
+}
 
 .answers-list .answer.selected{
     background-color: #F95;
 }
 
-.change {
+.subquestion-control {
     width: 100px;
     float: left;
-    line-height: 150px;
+    padding-top: 50px;
+}
+.subquestion-control > span {
+    display: block;
 }
 
 .status-indicator {
@@ -46,4 +53,13 @@ a {
     top: 0;
     right: 10px;
     background-color: #5F9;
+}
+
+.change {
+    text-decoration: underline;
+    color: blue;
+}
+.change:hover {
+    cursor: pointer;
+
 }

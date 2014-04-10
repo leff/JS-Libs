@@ -8,7 +8,7 @@ define(function() {
     return {
         question_json: {
             name: 'sandwich',
-            question_text: 'What kind of sandwich do you have?',
+            text: 'What kind of sandwich do you have?',
             type: 'choices',
             choices: [
                 {

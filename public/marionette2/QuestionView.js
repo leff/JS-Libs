@@ -27,9 +27,8 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
 
             //This only handles 2 level questions
             //but it does so by accepting the whole model, but only acting on a subset (the sub question)
-            if( this.options.choice_name ) {
-                var choice_in_question = _.findWhere(this.model.get('choices'), {name: this.options.choice_name});
-                this.choices = choice_in_question.choices;
+            if( this.options.choice ) {
+                this.choices = this.options.choice.choices;
             } else {
                 this.choices = this.model.get('choices');
             }
@@ -69,7 +68,9 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
 
         ui: {
             'change': '.change',
-            'status': '.status-indicator'
+            'status': '.status-indicator',
+            'subquestion_control': '.subquestion-control',
+            'subquestion_name': '.subquestion-name'
         },
 
         events: {
@@ -86,7 +87,6 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
             this.answers.on('show', function(view){
                 that.listenTo(view, 'subchoice:selected', that.onFollowup);
             });
-
         },
 
         onRender: function() {
@@ -98,14 +98,16 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
         _initQuestion: function() {
             var alv = new AnswerListView({model: this.model});
             this.answers.show(alv);
-            this.ui.change.hide();
+            this.ui.subquestion_control.hide();
             this.model.set('val', undefined);
         },
 
         onFollowup: function(choice_name) {
             this.model.set('val', undefined);
-            this.ui.change.show();
-            var nv = new AnswerListView({model: this.model, choice_name: choice_name});
+            var choice_in_question = _.findWhere(this.model.get('choices'), {name: choice_name});
+            this.ui.subquestion_name.html(choice_in_question.text);
+            this.ui.subquestion_control.show();
+            var nv = new AnswerListView({model: this.model, choice: choice_in_question});
             this.answers.show(nv);
         },
 
