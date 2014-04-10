@@ -68,11 +68,16 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
         },
 
         ui: {
-            'change': '.change'
+            'change': '.change',
+            'status': '.status-indicator'
         },
 
         events: {
             'click @ui.change': 'onChangeClick'
+        },
+
+        modelEvents: {
+            'change': 'onModelChange'
         },
 
         initialize: function() {
@@ -81,9 +86,11 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
             this.answers.on('show', function(view){
                 that.listenTo(view, 'subchoice:selected', that.onFollowup);
             });
+
         },
 
         onRender: function() {
+            this.ui.status.hide();
             this._initQuestion();
             this.current_value.show( new CurrentValueView({model: this.model}) );
         },
@@ -96,6 +103,7 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
         },
 
         onFollowup: function(choice_name) {
+            this.model.set('val', undefined);
             this.ui.change.show();
             var nv = new AnswerListView({model: this.model, choice_name: choice_name});
             this.answers.show(nv);
@@ -103,6 +111,14 @@ function(Backbone, Marionette, QuestionModel, AnswerListTemplate, QuestionTempla
 
         onChangeClick: function() {
             this._initQuestion();
+        },
+
+        onModelChange: function(model) {
+            if( model.changed.val ) {
+                this.ui.status.show();
+            } else {
+                this.ui.status.hide();
+            }
         }
 
     });
